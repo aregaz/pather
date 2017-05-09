@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pather.Logic\Pather.Logic.csproj">
-      <Project>{8624c4b3-c860-4c7b-b32d-c3ba9d9d04c4}</Project>
+      <Project>{8f556aeb-ee2a-4f6d-9e69-32465a4d34b9}</Project>
       <Name>Pather.Logic</Name>
     </ProjectReference>
   </ItemGroup>
