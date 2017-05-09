@@ -22,24 +22,46 @@ namespace Pather.Logic
 
         private void DrawPathBetweenPoints(Point point1, Point point2, char[,] map)
         {
+            int targetX;
+            int targetY;
+
             if (point1.X == point2.X)
             {
                 for (int i = 1; i < point2.Y - point1.Y; i++)
                 {
-                    map[point1.X, point1.Y + i] = Constants.PathSymbol;
+                    targetX = point1.X;
+                    targetY = point1.Y + i;
+
+                    SetPathPoint(targetX, targetY, map);
                 }
             }
             else if (point1.Y == point2.Y)
             {
                 for (int i = 1; i < point2.X - point1.X; i++)
                 {
-                    map[point1.X + i, point1.Y] = Constants.PathSymbol;
+                    targetX = point1.X + i;
+                    targetY = point1.Y;
+
+                    SetPathPoint(targetX, targetY, map);
                 }
             }
             else
             {
-                throw new NotImplementedException();
+                var middlePoint = new Point(point1.X, point2.Y);
+
+                DrawPathBetweenPoints(point1, middlePoint, map);
+                DrawPathBetweenPoints(middlePoint, point2, map);
             }
+        }
+
+        private void SetPathPoint(int targetX, int targetY, char[,] map)
+        {
+            if (map[targetX, targetY] != Constants.EmptySymbol)
+            {
+                throw new Exception("Complex case. Not going to implement for test task.");
+            }
+
+            map[targetX, targetY] = Constants.PathSymbol;
         }
     }
 }
