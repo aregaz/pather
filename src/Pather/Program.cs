@@ -12,11 +12,11 @@ namespace Pather
 
             var testText1 =
                 "....................." + Environment.NewLine +
-                "...#................." + Environment.NewLine +
+                "...#.........#......." + Environment.NewLine +
                 "....................." + Environment.NewLine +
                 "....................." + Environment.NewLine +
                 "....................." + Environment.NewLine +
-                "...#................." + Environment.NewLine +
+                "................#...." + Environment.NewLine +
                 ".....................";
 
             var map = new MapLoader().Parse(testText1);

@@ -51,6 +51,8 @@ namespace Pather.Logic
 
                 DrawPathBetweenPoints(point1, middlePoint, map);
                 DrawPathBetweenPoints(middlePoint, point2, map);
+
+                SetPathPoint(middlePoint.X, middlePoint.Y, map);
             }
         }
 
