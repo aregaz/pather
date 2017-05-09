@@ -1,5 +1,6 @@
 ﻿using Pather.Logic;
 using System;
+using System.IO;
 
 namespace Pather
 {
@@ -7,30 +8,58 @@ namespace Pather
     {
         static void Main(string[] args)
         {
-            ////var filePath = args[0];
-            ////var fileContent = File.ReadAllText(filePath);
+            if (args.Length != 2)
+            {
+                Console.WriteLine("Incorrect input parameters. Use: pather.exe input.txt output.txt");
+                return;
+            }
 
-            var testText1 =
-                "....................." + Environment.NewLine +
-                "...#................." + Environment.NewLine +
-                "..................#.." + Environment.NewLine +
-                "....................." + Environment.NewLine +
-                "....................." + Environment.NewLine +
-                ".........#..........." + Environment.NewLine +
-                ".....................";
+            var inputFilePath = args[0];
+            if (!File.Exists(inputFilePath))
+            {
+                Console.WriteLine("Incorrect input parameters. Input file was not found");
+                return;
+            }
 
-            var map = new MapLoader().Parse(testText1);
-            Console.WriteLine("Input:");
-            Console.WriteLine(map.ToString());
-            Console.WriteLine();
+            var inputContent = File.ReadAllText(inputFilePath);
 
-            var resultMap = new PathFinder().FindPathes(map);
-            Console.WriteLine("Output:");
-            Console.WriteLine(resultMap.ToString());
-            Console.WriteLine();
+            var outputContent = FindPath(inputContent);
 
-            Console.WriteLine("Press Enter to exit");
-            Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(outputContent))
+            {
+                File.WriteAllText(args[1], outputContent);
+                Console.WriteLine("Success");
+            }
+        }
+
+        private static string FindPath(string text)
+        {
+            try
+            {
+                var mapLoader = new MapLoader();
+                var map = mapLoader.Parse(text);
+
+                Console.WriteLine("Input:");
+                Console.WriteLine(map.ToString());
+                Console.WriteLine();
+
+                var pathFinder = new PathFinder();
+                pathFinder.FindPathes(map);
+                var result = map.ToString();
+
+                Console.WriteLine("Output:");
+                Console.WriteLine(result);
+                Console.WriteLine();
+
+                return result;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Unable to build path. An exception occured:");
+                Console.WriteLine(exception.GetBaseException().Message);
+                return null;
+            }
         }
     }
 }
