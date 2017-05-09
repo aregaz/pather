@@ -24,22 +24,22 @@ namespace Pather.Logic
         {
             if (point1.X == point2.X)
             {
-                for (int i = 0; i < point2.Y - point1.Y; i++)
+                for (int i = 1; i < point2.Y - point1.Y; i++)
                 {
                     map[point1.X, point1.Y + i] = Constants.PathSymbol;
                 }
             }
-
-            if (point1.Y == point2.Y)
+            else if (point1.Y == point2.Y)
             {
-                for (int i = 0; i < point2.X - point1.X; i++)
+                for (int i = 1; i < point2.X - point1.X; i++)
                 {
                     map[point1.X + i, point1.Y] = Constants.PathSymbol;
                 }
             }
-
-            throw new NotImplementedException();
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
-
     }
 }

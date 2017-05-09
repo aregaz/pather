@@ -28,9 +28,12 @@ namespace Pather.Logic
             var m = lines[0].Length; // all lines has same length - already checked
             var n = lines.Length;
             var charArray = new char[m, n];
-            for (int i = 0; i < m; i++)
+            for (int j = 0; j < n; j++)
             {
-                charArray.SetValue(lines[i], i);
+                for (int i = 0; i < m; i++)
+                {
+                    charArray.SetValue(lines[j][i], i, j);
+                }
             }
 
             return new Map(charArray);

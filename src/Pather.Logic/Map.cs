@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Pather.Logic
@@ -43,13 +44,17 @@ namespace Pather.Logic
         {
             var maptToText = new StringBuilder();
 
-            for (int i = 0; i < Raw.GetLength(1); i++)
+            for (int j = 0; j < Raw.GetLength(1); j++)
             {
-                var line = (char[])Raw.GetValue(i);
-                maptToText.Append(line);
+                for (int i = 0; i < Raw.GetLength(0); i++)
+                {
+                    maptToText.Append((char)Raw.GetValue(i, j));
+                }
+
+                maptToText.Append(Environment.NewLine);
             }
 
-            return base.ToString();
+            return maptToText.ToString();
         }
     }
 }
