@@ -24,22 +24,27 @@ namespace Pather.Logic
         {
             int targetX;
             int targetY;
+            int multiplier;
 
             if (point1.X == point2.X)
             {
-                for (int i = 1; i < point2.Y - point1.Y; i++)
+                multiplier = point2.Y > point1.Y ? 1 : -1;
+
+                for (int i = 1; i < (point2.Y - point1.Y) * multiplier; i++)
                 {
                     targetX = point1.X;
-                    targetY = point1.Y + i;
+                    targetY = point1.Y + i * multiplier;
 
                     SetPathPoint(targetX, targetY, map);
                 }
             }
             else if (point1.Y == point2.Y)
             {
-                for (int i = 1; i < point2.X - point1.X; i++)
+                multiplier = point2.X > point1.X ? 1 : -1;
+
+                for (int i = 1; i < (point2.X - point1.X) * multiplier; i++)
                 {
-                    targetX = point1.X + i;
+                    targetX = point1.X + i * multiplier;
                     targetY = point1.Y;
 
                     SetPathPoint(targetX, targetY, map);
