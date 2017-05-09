@@ -25,11 +25,7 @@ namespace Pather
 
             var outputContent = FindPath(inputContent);
 
-            if (!string.IsNullOrWhiteSpace(outputContent))
-            {
-                File.WriteAllText(args[1], outputContent);
-                Console.WriteLine("Success");
-            }
+            WriteOutputToFile(args[1], outputContent);
         }
 
         private static string FindPath(string text)
@@ -59,6 +55,24 @@ namespace Pather
                 Console.WriteLine("Unable to build path. An exception occured:");
                 Console.WriteLine(exception.GetBaseException().Message);
                 return null;
+            }
+        }
+
+        private static void WriteOutputToFile(string outputFilePath, string outputContent)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(outputContent))
+                {
+                    File.WriteAllText(outputFilePath, outputContent);
+                    Console.WriteLine("Success");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Incorrect output parameter. Second parameter must be valid file path");
+                Console.WriteLine(exception.GetBaseException().Message);
+                return;
             }
         }
     }
