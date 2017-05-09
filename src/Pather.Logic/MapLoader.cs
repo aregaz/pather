@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 
 namespace Pather.Logic
 {
     public class MapLoader
     {
+        private readonly string[] _newLineSeparators = new[] { "\r\n", "\n\r", "\r", "\n", };
+
         public Map Parse(string text)
         {
             if (!MapHasTwoPoints(text))
@@ -12,7 +15,7 @@ namespace Pather.Logic
                 throw new Exception("Invalid input. Map must contain at least two points.");
             }
 
-            var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            var lines = text.Split(_newLineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
             if (!HasEqualLength(lines))
             {
